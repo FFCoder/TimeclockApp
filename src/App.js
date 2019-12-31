@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 //import './App.css'
 import { FirebaseContext } from './components/Firebase';
 
-import NavBar from './components/NavBar';
 import { Container } from 'react-bootstrap';
 import { AuthUserContext } from './components/Session';
+import CustomHeader from './components/CustomHeader';
 
 class App extends Component {
   static contextType = FirebaseContext;
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <AuthUserContext.Provider value={this.state.authUser}>
         <Container>
-          <NavBar />
+          <CustomHeader />
       </Container>
       </AuthUserContext.Provider>
      );
