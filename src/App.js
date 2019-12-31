@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 //import Container from 'react-bootstrap/Container' ;
 //import './App.css'
-import Firebase, { FirebaseContext } from './components/Firebase';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { FirebaseContext } from './components/Firebase';
+
 import NavBar from './components/NavBar';
 import { Container } from 'react-bootstrap';
-import Home from './views/home';
+import { AuthUserContext } from './components/Session';
 
 class App extends Component {
+  static contextType = FirebaseContext;
   constructor(props) {
     super(props);
     this.state = { 
@@ -20,25 +16,26 @@ class App extends Component {
      }
   }
   componentDidMount() {
-    console.log("Component Mounted!")
+    let firebase = this.context;
+    this.listener = firebase.auth.onAuthStateChanged(authUser => {
+        authUser
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null })
+    });
   }
-  render() { 
-    return ( 
-      <FirebaseContext.Provider  value={new Firebase()}>
+  componentWillUnmount() {
+    this.listener();
+  }
+  render() {
+    return (
+      <AuthUserContext.Provider value={this.state.authUser}>
         <Container>
-        <NavBar></NavBar>
-        <Router>
-
-          <Switch>
-            <Route path="/"><Home /></Route>
-          </Switch>
-
-        </Router>
-        </Container>
-        
-    </FirebaseContext.Provider>
+          <NavBar />
+      </Container>
+      </AuthUserContext.Provider>
      );
   }
 }
+App.contextType = FirebaseContext;
  
 export default App;

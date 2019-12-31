@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-require('dotenv').config();
+import Firebase, { FirebaseContext } from './components/Firebase';
 
 
 ReactDOM.render(
-    <App />,
+    <FirebaseContext.Provider value={new Firebase()}>
+        <App></App>
+        
+    </FirebaseContext.Provider>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
