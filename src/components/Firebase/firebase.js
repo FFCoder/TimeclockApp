@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const config = {
   apiKey: "AIzaSyB8GLvfzjI43iBseF9oxj5mhJovtTwwk_k",
@@ -30,6 +31,31 @@ class Firebase {
     })
   }
   doSignOut = () => this.auth.signOut();
+  getUserVeritimeInfo = async (userEmail) => {
+    var db = app.firestore();
+    var query = db.collection('users').where('UserEmail', '==', userEmail).limit(1).get();
+    query.then(snapshot => {
+      if (snapshot.empty) {
+        return console.log("No User found for email: ", userEmail);
+      }
+      var doc = snapshot.docs[0];
+      var data = doc.data();
+      return {
+        VeritimeRegistered: data.VeritimeRegistered,
+        VeritimePhoneNumber: data.VeritimePhoneNumber,
+        VeritimePassword: data.VeritimePhoneNumber
+      }
+      
+
+    }).catch(err => {
+      console.error(err);
+    })
+  }
+  doDeleteUser = () => {app.auth().currentUser.delete().then(() => {
+    return "User Deleted"
+  }).catch(err => {
+    return err;
+  })}
 }
 
 export default Firebase;

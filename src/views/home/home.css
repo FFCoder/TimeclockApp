@@ -1,0 +1,13 @@
+.home_view {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#clock-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+.card .btn-danger {
+    margin: 0.5rem !important;
+}

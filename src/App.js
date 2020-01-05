@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 //import Container from 'react-bootstrap/Container' ;
 //import './App.css'
 import { FirebaseContext } from './components/Firebase';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './views/home';
 
 import { Container } from 'react-bootstrap';
 import { AuthUserContext } from './components/Session';
 import CustomHeader from './components/CustomHeader';
+import VeritimeEdit from './views/veritime-edit';
 
 class App extends Component {
   static contextType = FirebaseContext;
@@ -28,11 +31,22 @@ class App extends Component {
   }
   render() {
     return (
+      <Router>
       <AuthUserContext.Provider value={this.state.authUser}>
+      <CustomHeader />
         <Container>
-          <CustomHeader />
+            <Switch>
+              <Route exact path='/'>
+                <Home />
+              </Route>
+              <Route path='/edit'>
+                <VeritimeEdit />
+              </Route>
+        </Switch>
       </Container>
       </AuthUserContext.Provider>
+      
+      </Router>
      );
   }
 }

@@ -3,6 +3,7 @@ import { Navbar, Nav, Button } from 'react-bootstrap';
 import { AuthUserContext } from '../Session';
 import './NavBar.css';
 import { FirebaseContext } from '../Firebase';
+import './clock.svg';
 
 class CustomHeader extends Component {
     constructor(props) {
@@ -27,20 +28,23 @@ class CustomHeader extends Component {
 }
 function Navigation(props) {
     const isLoggedIn = (
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" className="custom-header">
                 <Navbar.Brand href="/">Timeclock App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="custom-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                     </Nav>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/edit">Veritime Info</Nav.Link>
+                    </Nav>
                 <span id="navbar-greeter">Hello, {props.authUser?.displayName}</span>
-                <Nav.Link onClick={props.firebase.doSignOut}>Logout</Nav.Link>
+                <Button variant="danger" onClick={props.firebase.doSignOut}>Log Out</Button>
                 </Navbar.Collapse>
             </Navbar>
     );
     const isNotLoggedIn = (
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" className="custom-header">
                 <Navbar.Brand href="/">Timeclock App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="custom-navbar-nav">
