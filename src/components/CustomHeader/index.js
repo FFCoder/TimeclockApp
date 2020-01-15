@@ -32,10 +32,8 @@ function Navigation(props) {
                 <Navbar.Brand href="/">Timeclock App</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="custom-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="mr-auto n">
                         <Nav.Link href="/">Home</Nav.Link>
-                    </Nav>
-                    <Nav className="mr-auto">
                         <Nav.Link href="/edit">Veritime Info</Nav.Link>
                     </Nav>
                 <span id="navbar-greeter">Hello, {props.authUser?.displayName}</span>
